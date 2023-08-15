@@ -42,7 +42,35 @@ class geradorLista:
     #partir desse ponto pegamos o resto do vetor "valores", e guardamos no oque sobrou no vetor "vetor"
     
     def gerarVetorAleatorio(inc, fim, stp):
-        print("executar")
+            posicao=0
+            valores=[]
+            while(inc<fim and len(valores)<20000):
+                if(inc>=0):
+                    valores.append(inc)
+                inc+=stp
+            tam=len(valores)
+            vetor=['nulo'] * tam
+            nivelOcupacao=0
+            posicaoValores=0
+            posicaoVetor=0
+            while(nivelOcupacao/tam<0.7):
+                posicaoVetor=random.randint(0,tam-1)
+                while True:
+                    posicaoVetor+=1
+                    posicaoVetor=posicaoVetor%tam
+                    if(vetor[posicaoVetor]=='nulo'):
+                        vetor[posicaoVetor]=valores[posicaoValores]
+                        valores.pop(posicaoValores)
+                        break
+                nivelOcupacao+=1
+            posicaoValores=0
+            posicaoVetor=0
+            while(posicaoVetor<tam):
+                if(vetor[posicaoVetor]=='nulo'):
+                    vetor[posicaoVetor]=valores[posicaoValores]
+                    posicaoValores+=1
+                posicaoVetor+=1
+            return vetor
         
         
     #Função responsável por gerar vetor em ordem decrescente
@@ -52,7 +80,13 @@ class geradorLista:
     #São pegos valores de fim até inc dentro de intervalos stp e guardos em vetor
         
     def gerarVetorReverso(inc, fim, stp):
-            print("executar")
+            posicao=0
+            vetor=[]
+            while(inc<fim and len(vetor)<20000):
+                if(fim>=0):
+                    vetor.append(fim)
+                fim-=stp
+            return vetor
         
         
     #Função responsável por gerar vetor em ordem crescente
@@ -62,7 +96,13 @@ class geradorLista:
     #São pegos valores de inc até fim dentro de intervalos stp e guardos em vetor
     
     def gerarVetorOrdenado(inc, fim, stp):
-            print("executar")
+            posicao=0
+            vetor=[]
+            while(inc<fim and len(vetor)<20000):
+                if(inc>=0):
+                    vetor.append(inc)
+                inc+=stp
+            return vetor
     
     
     #Função responsável por gerar vetor em ordem crescente, e desorganizar este até certo ponto
@@ -73,7 +113,25 @@ class geradorLista:
     #e trocamos seus valores de lugar isso x vezes até que 10% deste vetor esteja desorganizado
      
     def gerarVetorQuaseOrdenado(inc, fim, stp):
-            print("executar")
+            posicao=0
+            vetor=[]
+            while(inc<fim and len(vetor)<20000):
+                if(inc>=0):
+                    vetor.append(inc)
+                inc+=stp
+            nivelAleatoriarizador=0
+            tam=len(vetor)
+            while(nivelAleatoriarizador/tam<0.1):
+                while True:
+                    posicaoVetor1=random.randint(0,tam-1)
+                    posicaoVetor2=random.randint(0,tam-1)
+                    if(posicaoVetor1!=posicaoVetor2):
+                        break
+                tmp=vetor[posicaoVetor1]
+                vetor[posicaoVetor1]=vetor[posicaoVetor2]
+                vetor[posicaoVetor2]=tmp
+                nivelAleatoriarizador+=1
+            return vetor
     
     
     ## Observação em todas as funções valores negativos que apareçam durante a geração não são guardos em valores, e se o tamanho de valores
